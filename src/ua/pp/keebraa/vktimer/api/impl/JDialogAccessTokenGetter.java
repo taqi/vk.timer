@@ -1,17 +1,21 @@
-package ua.pp.keebraa.vktimer.api;
+package ua.pp.keebraa.vktimer.api.impl;
 
 import java.awt.BorderLayout;
 
 import javax.swing.BorderFactory;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+import javax.tools.Diagnostic;
+
+import ua.pp.keebraa.vktimer.api.WebBrowserUrlListener;
 
 import chrriis.common.UIUtils;
 import chrriis.dj.nativeswing.swtimpl.NativeInterface;
 import chrriis.dj.nativeswing.swtimpl.components.JWebBrowser;
 
-public class AccessTokenGetter {
+public class JDialogAccessTokenGetter {
 	private String accessToken;
 	private final WebBrowserUrlListener listener = new WebBrowserUrlListener();
 
