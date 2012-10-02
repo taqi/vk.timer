@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
+import ua.pp.keebraa.vktimer.api.VKAPIContext;
+
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
@@ -11,8 +13,6 @@ public class AccessTokenWizard {
 	private String token;
 
 	private HtmlPage currentPage;
-
-	private WebClient client = new WebClient();
 
 	private String login;
 
@@ -40,7 +40,7 @@ public class AccessTokenWizard {
 
 	public void changePage(String url) {
 		try {
-			currentPage = client.getPage(url);
+			currentPage = (HtmlPage) VKAPIContext.getPage(url);
 		} catch (IOException e) {
 			currentPage = null;
 		}

@@ -21,10 +21,6 @@ public class VKAPIFacade {
 		accessToken.getAccessToken(login, password, applicationId);
 	}
 
-	public boolean isUserOnline(String userId) {
-		return userApi.isUserOnline(getAccessToken(), userId);
-	}
-
 	public String getAccessToken() {
 		return accessToken.getAccessToken(login, password, applicationId);
 	}

@@ -1,6 +1,9 @@
 package ua.pp.keebraa.vktimer.core;
 
-import ua.pp.keebraa.vktimer.api.VKAPIFacade;
+import java.io.UnsupportedEncodingException;
+
+import ua.pp.keebraa.vktimer.api.UserApi;
+import ua.pp.keebraa.vktimer.api.VKAPIContext;
 
 //http://habrahabr.ru/post/131943/
 public class Application {
@@ -8,8 +11,6 @@ public class Application {
 	private static String login;
 	private static String password;
 	private static String applicationId;
-
-	private static VKAPIFacade apiFacade;
 
 	public static void setLogin(String login) {
 		Application.login = login;
@@ -24,12 +25,18 @@ public class Application {
 	}
 
 	public static void init() {
-		Application.apiFacade = new VKAPIFacade(login, password, applicationId);
+		VKAPIContext.init(login, password, applicationId);
 	}
 
-	public static void start() {
-		boolean result = Application.apiFacade
-				.isUserOnline("blablabla_whiskas");
-		System.out.println(result);
+	public static void start() throws UnsupportedEncodingException {
+		UserApi api = new UserApi();
+		String result = api.isUserOnline("blablabla_whiskas");
+		System.out.println("1: "+result);
+		
+		result = api.isUserOnline("blablabla_whiskas");
+		System.out.println("2: "+result);
+		
+		result = api.isUserOnline("blablabla_whiskas");
+		System.out.println("3: "+result);
 	}
 }
