@@ -1,12 +1,11 @@
 package ua.pp.keebraa.vktimer.api.accesstoken;
 
-import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
-import ua.pp.keebraa.vktimer.api.VKAPIContext;
+import ua.pp.keebraa.vktimer.api.IVkApi;
+import ua.pp.keebraa.vktimer.api.exception.AccessTokenWizardException;
 
-import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 public class AccessTokenWizard {
@@ -22,12 +21,14 @@ public class AccessTokenWizard {
 
 	private List<AccessTokenWizardPage> pages;
 
-	public AccessTokenWizard() {
+	private IVkApi api;
+
+	public AccessTokenWizard(IVkApi api) {
 		pages = new LinkedList<AccessTokenWizardPage>();
 		pages.add(new AccessTokenAskLoginPasswordPage());
 		pages.add(new AllowAccessPage());
 		pages.add(new LoginSuccessPage());
-		// changePage(new VKAPIFacade().buildLoginPageURL("3145529"));
+		this.api = api;
 	}
 
 	public HtmlPage getPage() {
@@ -39,11 +40,7 @@ public class AccessTokenWizard {
 	}
 
 	public void changePage(String url) {
-		try {
-			currentPage = (HtmlPage) VKAPIContext.getPage(url);
-		} catch (IOException e) {
-			currentPage = null;
-		}
+		currentPage = (HtmlPage) api.getPage(url);
 	}
 
 	public void changePage(HtmlPage page) {
@@ -72,7 +69,7 @@ public class AccessTokenWizard {
 				continue;
 			boolean result = page.process(this);
 			if (!result) {
-				return null;
+				throw new AccessTokenWizardException(page.getPageDescription());
 			}
 		}
 		return token;

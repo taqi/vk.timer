@@ -9,10 +9,10 @@ public class AccessToken {
 
 	private AccessTokenWizard wizard;
 
-	public AccessToken() {
+	public AccessToken(IVkApi api) {
 		expired = -10000l;
 		queryTime = 0l;
-		wizard = new AccessTokenWizard();
+		wizard = new AccessTokenWizard(api);
 	}
 
 	public String getAccessToken(String login, String password,

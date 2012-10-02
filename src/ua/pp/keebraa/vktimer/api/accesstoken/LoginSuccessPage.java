@@ -5,13 +5,14 @@ import java.io.IOException;
 import ua.pp.keebraa.vktimer.api.HttpUtils;
 
 import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlButton;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 public class LoginSuccessPage implements AccessTokenWizardPage {
 
 	private static String accessTokenGetParamName = "access_token";
 	private static String expiredGetParamName = "expires_in";
+	
+	private static String description = "login success message page";
 
 	@Override
 	public boolean validate(HtmlPage page) {
@@ -47,5 +48,10 @@ public class LoginSuccessPage implements AccessTokenWizardPage {
 			return false;
 		}
 		return validate(page);
+	}
+
+	@Override
+	public String getPageDescription() {
+		return description;
 	}
 }

@@ -17,6 +17,8 @@ public class AccessTokenAskLoginPasswordPage implements AccessTokenWizardPage {
 	private static String passwordInputName = "pass";
 	private static String submitButtonId = "install_allow";
 	private static String mandatoryGetParameter = "response_type";
+	
+	private static String description = "Ask login password page";
 
 	@Override
 	public boolean validate(HtmlPage page) {
@@ -63,5 +65,10 @@ public class AccessTokenAskLoginPasswordPage implements AccessTokenWizardPage {
 			return false;
 		}
 		return validate(page);
+	}
+
+	@Override
+	public String getPageDescription() {
+		return description;
 	}
 }

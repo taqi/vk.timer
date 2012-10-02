@@ -8,4 +8,6 @@ public interface AccessTokenWizardPage {
 	boolean validate(HtmlPage page);
 
 	public boolean process(AccessTokenWizard wizard);
+	
+	public String getPageDescription();
 }

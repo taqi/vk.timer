@@ -6,19 +6,18 @@ import ua.pp.keebraa.vktimer.api.HttpUtils;
 
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlButton;
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlForm;
-import com.gargoylesoftware.htmlunit.html.HtmlInput;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 public class AllowAccessPage implements AccessTokenWizardPage {
 
 	private static String loginFormId = "login_submit";
 	private static String submitButtonId = "install_allow";
+	
+	private static String description = "allow access page";
+	
 
 	@Override
 	public boolean validate(HtmlPage page) {
-		String url = page.getWebResponse().getWebRequest().getUrl().toString();
 		if (HttpUtils.hasHtmlFormWithId(page, loginFormId)) {
 			return false;
 		}
@@ -55,5 +54,10 @@ public class AllowAccessPage implements AccessTokenWizardPage {
 			return false;
 		}
 		return validate(page);
+	}
+
+	@Override
+	public String getPageDescription() {
+		return description;
 	}
 }
