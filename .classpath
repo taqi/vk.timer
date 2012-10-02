@@ -6,7 +6,7 @@
 	<classpathentry kind="lib" path="lib/DJNativeSwing.jar"/>
 	<classpathentry kind="lib" path="lib/gson-2.2.2-javadoc.jar"/>
 	<classpathentry kind="lib" path="lib/gson-2.2.2-sources.jar"/>
-	<classpathentry kind="lib" path="lib/gson-2.2.2.jar"/>
+	<classpathentry kind="lib" path="lib/gson-2.2.2.jar" sourcepath="lib/gson-2.2.2-sources.jar"/>
 	<classpathentry kind="lib" path="lib/htmlunit/commons-codec-1.6.jar"/>
 	<classpathentry kind="lib" path="lib/htmlunit/commons-collections-3.2.1.jar"/>
 	<classpathentry kind="lib" path="lib/htmlunit/commons-io-2.2.jar"/>
