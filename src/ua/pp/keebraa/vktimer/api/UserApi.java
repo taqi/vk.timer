@@ -4,7 +4,12 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import ua.pp.keebraa.vktimer.api.answer.UserGetAnswer;
+import ua.pp.keebraa.vktimer.api.answer.UserGetAnswerDeserializer;
+
 import com.gargoylesoftware.htmlunit.Page;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 public class UserApi extends VKAPIAbstract {
 	private static final String userGetMethod = "users.get";
@@ -24,7 +29,13 @@ public class UserApi extends VKAPIAbstract {
 		} catch (IOException e) {
 			return "";
 		}
-		System.out.println(page.getWebResponse().getContentCharset());
+		String json = page.getWebResponse().getContentAsString();
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.registerTypeAdapter(UserGetAnswer.class,
+				new UserGetAnswerDeserializer());
+		Gson gson = gsonBuilder.create();
+		UserGetAnswer answer = gson.fromJson(json, UserGetAnswer.class);
+		System.out.println(answer.isOnline());
 		return page.getWebResponse().getContentAsString();
 	}
 }

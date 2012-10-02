@@ -33,10 +33,10 @@ public class Application {
 		String result = api.isUserOnline("blablabla_whiskas");
 		System.out.println("1: "+result);
 		
-		result = api.isUserOnline("blablabla_whiskas");
+		result = api.isUserOnline("id48432956");
 		System.out.println("2: "+result);
 		
-		result = api.isUserOnline("blablabla_whiskas");
+		result = api.isUserOnline("id9211039");
 		System.out.println("3: "+result);
 	}
 }
