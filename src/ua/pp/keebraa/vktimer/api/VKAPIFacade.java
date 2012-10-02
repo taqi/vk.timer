@@ -2,23 +2,30 @@ package ua.pp.keebraa.vktimer.api;
 
 public class VKAPIFacade {
 
-	public static String buildLoginPageURL(String applicationId) {
-		StringBuilder builder = new StringBuilder();
-		builder.append("http://oauth.vk.com/oauth/authorize");
-		builder.append("?client_id=");
-		builder.append(applicationId);
-		builder.append("&");
-		builder.append("redirect_uri=http%3A%2F%2Fapi.vk.com%2Fblank.html");
-		builder.append("&");
-		builder.append("response_type=token");
-		builder.append("&");
-		builder.append("scope=440479");
-		builder.append("&");
-		builder.append("display=page");
-		return builder.toString();
+	private String login;
+	private String password;
+	private String applicationId;
+	private UserApi userApi;
+	private AccessToken accessToken;
+
+	public VKAPIFacade(String login, String password, String applicationId) {
+		this.login = login;
+		this.password = password;
+		this.applicationId = applicationId;
+		init();
+	}
+
+	private void init() {
+		userApi = new UserApi();
+		accessToken = new AccessToken();
+		accessToken.getAccessToken(login, password, applicationId);
+	}
+
+	public boolean isUserOnline(String userId) {
+		return userApi.isUserOnline(getAccessToken(), userId);
 	}
 
 	public String getAccessToken() {
-		return null;
+		return accessToken.getAccessToken(login, password, applicationId);
 	}
 }

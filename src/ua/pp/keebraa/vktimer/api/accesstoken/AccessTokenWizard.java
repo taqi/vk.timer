@@ -4,23 +4,19 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
-import ua.pp.keebraa.vktimer.api.VKAPIFacade;
-
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 public class AccessTokenWizard {
 	private String token;
 
-	private long expired;
-
-	private long queryTime;
-
 	private HtmlPage currentPage;
 
 	private WebClient client = new WebClient();
 
 	private String login;
+
+	private Long expired;
 
 	private String password;
 
@@ -30,7 +26,8 @@ public class AccessTokenWizard {
 		pages = new LinkedList<AccessTokenWizardPage>();
 		pages.add(new AccessTokenAskLoginPasswordPage());
 		pages.add(new AllowAccessPage());
-		changePage(VKAPIFacade.buildLoginPageURL("3145529"));
+		pages.add(new LoginSuccessPage());
+		// changePage(new VKAPIFacade().buildLoginPageURL("3145529"));
 	}
 
 	public HtmlPage getPage() {
@@ -69,22 +66,23 @@ public class AccessTokenWizard {
 		this.password = password;
 	}
 
-	public void process() {
+	public String process() {
 		for (AccessTokenWizardPage page : pages) {
 			if (!page.validate(currentPage))
 				continue;
 			boolean result = page.process(this);
 			if (!result) {
-
+				return null;
 			}
 		}
+		return token;
 	}
 
 	public void setExpired(String expired) {
-		this.expired = Long.getLong(expired);
+		this.expired = Long.valueOf(expired);
 	}
 
-	public void setQueryTime(long time) {
-		queryTime = time;
+	public long getExpired() {
+		return expired;
 	}
 }

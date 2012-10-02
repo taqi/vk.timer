@@ -6,18 +6,20 @@ import ua.pp.keebraa.vktimer.api.HttpUtils;
 
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlButton;
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlForm;
-import com.gargoylesoftware.htmlunit.html.HtmlInput;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 public class LoginSuccessPage implements AccessTokenWizardPage {
 
-	private static String submitButtonId = "install_allow";
-	
+	private static String accessTokenGetParamName = "access_token";
+	private static String expiredGetParamName = "expires_in";
+
 	@Override
 	public boolean validate(HtmlPage page) {
-		if (!HttpUtils.hasButtonWithId(page, submitButtonId)) {
+		String url = page.getWebResponse().getWebRequest().getUrl().toString();
+		if (!HttpUtils.hasGetParameter(url, accessTokenGetParamName)) {
+			return false;
+		}
+		if (!HttpUtils.hasGetParameter(url, expiredGetParamName)) {
 			return false;
 		}
 		return true;
@@ -25,18 +27,13 @@ public class LoginSuccessPage implements AccessTokenWizardPage {
 
 	@Override
 	public boolean process(AccessTokenWizard wizard) {
-		HtmlPage page = wizard.getPage();
-		HtmlButton allowButton = HttpUtils.getHtmlButtonById(page,
-				submitButtonId);
-		if (allowButton == null)
-			return false;
-		HtmlPage resultPage;
-		try {
-			resultPage = allowButton.click();
-		} catch (IOException e) {
-			return false;
-		}
-		wizard.changePage(resultPage);
+		String url = wizard.getPage().getWebResponse().getWebRequest().getUrl()
+				.toString();
+		String accessToken = HttpUtils.getParameter(url,
+				accessTokenGetParamName);
+		String expiredTime = HttpUtils.getParameter(url, expiredGetParamName);
+		wizard.setExpired(expiredTime);
+		wizard.setToken(accessToken);
 		return true;
 	}
 

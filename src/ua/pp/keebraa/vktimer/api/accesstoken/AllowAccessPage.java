@@ -19,7 +19,10 @@ public class AllowAccessPage implements AccessTokenWizardPage {
 	@Override
 	public boolean validate(HtmlPage page) {
 		String url = page.getWebResponse().getWebRequest().getUrl().toString();
-		if (!HttpUtils.hasHtmlFormWithId(page, loginFormId)) {
+		if (HttpUtils.hasHtmlFormWithId(page, loginFormId)) {
+			return false;
+		}
+		if (!HttpUtils.hasHtmlElementWithId(page, submitButtonId)) {
 			return false;
 		}
 		return true;

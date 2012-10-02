@@ -6,9 +6,10 @@ public class Main3 {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		Application app = new Application();
-		app.init();
-		app.initializeConnection();
+		Application.setLogin("excelka@mail.ru");
+		Application.setPassword("WhatsMyAgeAgain");
+		Application.setApplicationId("3145529");
+		Application.init();
+		Application.start();
 	}
-
 }

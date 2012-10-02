@@ -11,7 +11,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 public class HttpUtils {
 
 	private static Pattern urlParameter = Pattern
-			.compile("[#?&]{1}(([a-zA-Z0-9_\\-]+)=([\\.,:/a-zA-Z0-9_\\-]*))[&]*");
+			.compile("[#?&]{1}(([a-zA-Z0-9_\\-]+)=([\\.,:/a-zA-Z0-9_\\-]*))");
 
 	public static boolean hasGetParameter(String url, String parameterName) {
 		Matcher matcher = urlParameter.matcher(url);
@@ -22,6 +22,17 @@ public class HttpUtils {
 			}
 		}
 		return false;
+	}
+
+	public static String getParameter(String url, String parameterName) {
+		Matcher matcher = urlParameter.matcher(url);
+		while (matcher.find()) {
+			String parameter = matcher.group(2);
+			if (parameterName.equals(parameter)) {
+				return matcher.group(3);
+			}
+		}
+		return null;
 	}
 
 	public static boolean hasHtmlElementWithId(HtmlPage page, String elementId) {

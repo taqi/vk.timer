@@ -32,20 +32,6 @@ public class UserOnlineStatus {
 		String variableFields = "fields=online";
 		String urlString = buildUrlString(accessToken, "users.get",
 				variableUserId, variableFields);
-		try {
-			URL url = new URL(urlString);
-			InputStream stream = url.openConnection().getInputStream();
-			BufferedReader reader = new BufferedReader(new InputStreamReader(
-					stream));
-			while (reader.ready()) {
-				String line = reader.readLine();
-				System.out.println(line);
-			}
-		} catch (MalformedURLException e) {
-			return false;
-		} catch (IOException e) {
-			return false;
-		}
 		return false;
 	}
 }
