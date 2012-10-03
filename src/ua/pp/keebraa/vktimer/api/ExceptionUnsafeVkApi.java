@@ -14,16 +14,19 @@ public class ExceptionUnsafeVkApi implements IVkApi {
     private String login;
     private String password;
     private String applicationId;
+    private int webClientTimeout;
     private WebClient webClient;
 
     private AccessToken accessTokenController;
 
     public void init(String login, String password, String applicationId) {
         this.login = login;
+        this.webClientTimeout = 15000;
         this.password = password;
         this.applicationId = applicationId;
         this.webClient = new WebClient();
         this.accessTokenController = new AccessToken(this);
+        this.webClient.setTimeout(webClientTimeout);
     }
 
     public String getAccessToken() {
@@ -52,7 +55,7 @@ public class ExceptionUnsafeVkApi implements IVkApi {
         login = null;
         password = null;
         accessTokenController = null;
-        if(webClient != null)
+        if (webClient != null)
             webClient.closeAllWindows();
         webClient = null;
     }
