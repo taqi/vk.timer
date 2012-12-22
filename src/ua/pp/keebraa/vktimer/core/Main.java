@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 
 import ua.pp.keebraa.vktimer.api.ExceptionUnsafeVkApi;
 import ua.pp.keebraa.vktimer.api.interfaces.IVkApi;
+import ua.pp.keebraa.vktimer.core.units.UserOnlineLogTimeUnit;
 import ua.pp.keebraa.vktimer.core.units.UsersOnlineUnit;
 
 public class Main {
@@ -27,7 +28,12 @@ public class Main {
         usersOnlineUnit.setApplicationId(applicationId);
         usersOnlineUnit.setApi(api);
         usersOnlineUnit.setApplication(app);
+        
+        UserOnlineLogTimeUnit logTimeUnit = new UserOnlineLogTimeUnit();
+        logTimeUnit.setApplication(app);
         app.addUnit(usersOnlineUnit);
+        app.addUnit(logTimeUnit);
         app.start();
     }
 }
+

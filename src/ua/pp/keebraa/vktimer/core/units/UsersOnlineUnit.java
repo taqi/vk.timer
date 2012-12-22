@@ -53,7 +53,6 @@ public class UsersOnlineUnit implements ApplicationUnit {
         return api;
     }
 
-    @Override
     public void setApi(IVkApi api) {
         this.api = api;
     }

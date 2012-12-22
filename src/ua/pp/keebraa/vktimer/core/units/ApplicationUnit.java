@@ -6,7 +6,6 @@ import ua.pp.keebraa.vktimer.core.Application;
 public interface ApplicationUnit {
 
     public void setApplication(Application application);
-    public void setApi(IVkApi api);
 
     public void cleanStart();
 
